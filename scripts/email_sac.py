@@ -1,5 +1,7 @@
 import getpass
+
 from openreview.api import OpenReviewClient
+from openreview.tools import iterget_notes
 
 username = input("Enter your username: ")
 password = getpass.getpass("Enter your password: ")
@@ -13,20 +15,20 @@ client = OpenReviewClient(baseurl=BASE_API_URL, username=username, password=pass
 
 # Get active(blind) submissions
 submissions = list(
-    openreview.tools.iterget_notes(
+    iterget_notes(
         client,
         invitation=f"{domain}/-/Submission",
         details="directReplies",
     )
 )
 withdrawn_submissions = list(
-    openreview.tools.iterget_notes(
+    iterget_notes(
         client, invitation=f"{domain}/-/Withdrawn_Submission"
     )
 )
 withdrawns = [w.number for w in withdrawn_submissions]
 desk_reject_submissions = list(
-    openreview.tools.iterget_notes(
+    iterget_notes(
         client, invitation=f"{domain}/-/Desk_Rejected_Submission"
     )
 )
