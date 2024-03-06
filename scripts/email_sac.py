@@ -1,5 +1,6 @@
 import getpass
 
+import numpy as np
 from openreview.api import OpenReviewClient
 from openreview.tools import iterget_notes
 
@@ -89,7 +90,7 @@ for review in reviews:
         p = forum_number[review["forum"]]
         if p not in p_ratings:
             p_ratings[p] = []
-        p_ratings[p].append(int(review["content"]["rating"]["value"].split(":")[0]))
+        p_ratings[p].append(int(review["content"]["overall_recommendation"]["value"].split(":")[0]))
 
 avg_rating = {}
 for p in p_ratings:
